@@ -19,6 +19,7 @@ export const api = {
 export const DataProvider = ({ children }) => {
   const [error, setError] = useState(null);
   const [data, setData] = useState(null);
+  const [last, setLast] = useState(null);
   const getData = useCallback(async () => {
     try {
       setData(await api.loadData());
@@ -27,7 +28,13 @@ export const DataProvider = ({ children }) => {
     }
   }, []);
   useEffect(() => {
-    if (data) return;
+    if (data) {
+      const lastEvent = data?.events.sort((evtA, evtB) =>
+      new Date(evtA.date) > new Date(evtB.date) ? -1 : 1)[0];
+      setLast(lastEvent);
+      return;
+    }
+
     getData();
   });
   
@@ -37,6 +44,7 @@ export const DataProvider = ({ children }) => {
       value={{
         data,
         error,
+        last
       }}
     >
       {children}
