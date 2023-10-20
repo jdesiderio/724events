@@ -17,6 +17,11 @@ const Slider = () => {
     const timer = setTimeout(nextCard, 5000);
     return () => clearTimeout(timer);
   }, [index, byDateDesc]);
+ 
+  const onOptionChange = e => {
+    setIndex(Number(e.target.value));
+  };
+
   return (
     <div className="SlideCardList">
       {byDateDesc?.map((event, idx) => (
@@ -41,7 +46,9 @@ const Slider = () => {
               key={`${event.title+radioIdx}`}
               type="radio"
               name="radio-button"
+              value={radioIdx}
               checked={index === radioIdx}
+              onChange={onOptionChange}
             />
           ))}
         </div>
