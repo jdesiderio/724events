@@ -47,7 +47,8 @@ const EventList = () => {
             onChange={(value) => (value ? changeType(value) : changeType(null))}
           />
           <div id="events" className="ListContainer">
-            {filteredEvents.map((event) => (
+          {filteredEvents && Array.isArray(filteredEvents) ? (
+            filteredEvents.map((event) => (
               <Modal key={event.id} Content={<ModalEvent event={event} />}>
                 {({ setIsOpened }) => (
                   <EventCard
@@ -59,7 +60,10 @@ const EventList = () => {
                   />
                 )}
               </Modal>
-            ))}
+            ))
+          ) : (
+            <div>{error}</div>
+          )}
           </div>
           <div className="Pagination">
             {[...Array(pageNumber || 0)].map((_, n) => (
