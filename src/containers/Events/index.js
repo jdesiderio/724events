@@ -8,12 +8,15 @@ import ModalEvent from "../ModalEvent";
 import "./style.css";
 
 const PER_PAGE = 9;
+let filteredEvents = [];
+let typeSave;
+let typeList = [];
 
 const EventList = () => {
   const { data, error } = useData();
   const [type, setType] = useState();
   const [currentPage, setCurrentPage] = useState(1);
-  const filteredEvents = data?.events.filter((event) => {
+  filteredEvents = filteredEvents && filteredEvents.length > 0 && typeSave === type ? filteredEvents : data?.events?.filter((event) => {
   if(!type || event.type === type) {
     return true;
   }
@@ -33,11 +36,16 @@ const EventList = () => {
     setType(evtType);
   };
   const pageNumber = Math.floor((filteredEvents?.length || 0) / PER_PAGE) + 1;
-  const typeList = new Set(data?.events.map((event) => event.type));
+  typeList = typeList.length > 0
+  ? typeList
+  : Array.from(
+      new Set(data?.events.map((event) => event.type))
+    ).sort();
+  typeSave = type;
   return (
     <>
       {error && <div>An error occured</div>}
-      {data === null ? (
+      {data === undefined || data?.events === undefined || data === null ? (
         "loading"
       ) : (
         <>
