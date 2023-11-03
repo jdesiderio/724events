@@ -13,7 +13,7 @@ import Modal from "../../containers/Modal";
 import { useData } from "../../contexts/DataContext";
 
 const Page = () => {
-  const {last} = useData()
+  const {last} = useData();
   return <>
     <header>
       <Menu />
@@ -113,8 +113,8 @@ const Page = () => {
         </Modal>
       </div>
     </main>
-    <footer className="row">
-      <div className="col presta">
+    <footer data-testid="footer" className="row">
+      <div data-testid="presta" className="col presta">
         <h3>Notre dernière prestation</h3>
         <EventCard
           imageSrc={last?.cover || ""}
@@ -124,7 +124,7 @@ const Page = () => {
           label="boom"
         />
       </div>
-      <div className="col contact">
+      <div data-testid="contact" className="col contact">
         <h3>Contactez-nous</h3>
         <address>45 avenue de la République, 75000 Paris</address>
         <div>01 23 45 67 89</div>
@@ -144,7 +144,7 @@ const Page = () => {
           </a>
         </div>
       </div>
-      <div className="col description">
+      <div data-testid="description" className="col description">
         <Logo size="large" />
         <p>
           Une agence événementielle propose des prestations de service

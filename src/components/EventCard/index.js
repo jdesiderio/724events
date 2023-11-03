@@ -28,7 +28,7 @@ const EventCard = ({
     </div>
   );
 
-EventCard.propTypes = {
+  EventCard.propTypes = {
   imageSrc: PropTypes.string.isRequired,
   imageAlt: PropTypes.string,
   date: PropTypes.instanceOf(Date).isRequired,
