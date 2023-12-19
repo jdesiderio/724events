@@ -11,8 +11,8 @@ const Slider = () => {
     new Date(evtA.date) > new Date(evtB.date) ? -1 : 1
   );
   const nextCard = () => {
-    setIndex((prevIndex) => (prevIndex < byDateDesc.length - 1 ? prevIndex + 1 : 0));
-  };
+    setIndex((prevIndex) => (prevIndex + 1) % byDateDesc.length);
+  };  
   useEffect(() => {
     const timer = setTimeout(nextCard, 5000);
     return () => clearTimeout(timer);
